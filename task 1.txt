@@ -1,0 +1,28 @@
+task 1
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input values for n, m, and h
+        System.out.print("Enter initial count (n): ");
+        int n = scanner.nextInt();
+
+        System.out.print("Enter increase per hour (m): ");
+        int m = scanner.nextInt();
+
+        System.out.print("Enter number of hours (h): ");
+        int h = scanner.nextInt();
+
+        // Calculate the total number of Dementors fought
+        int totalDementors = (h * (2 * n + (h - 1) * m)) / 2;
+
+        // Output the result
+        System.out.println("Total Dementors fought: " + totalDementors);
+
+        scanner.close();
+
+    }
+}

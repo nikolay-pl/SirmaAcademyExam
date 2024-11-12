@@ -1,0 +1,53 @@
+task 3
+import java.util.Scanner;
+
+public class HogwartsDecoder {
+
+    public static String decipherMessage(String s, int n) {
+        StringBuilder decodedMessage = new StringBuilder();
+
+        for (char c : s.toCharArray()) {
+            // Check if the character is a lowercase letter
+            if (c >= 'a' && c <= 'z') {
+                // Shift character back by 'n' positions and wrap around if necessary
+                char shiftedChar = (char) (c - n);
+                if (shiftedChar < 'a') {
+                    shiftedChar += 26; // Wrap around within lowercase alphabet
+                }
+                decodedMessage.append(shiftedChar);
+            }
+            // Check if the character is an uppercase letter
+            else if (c >= 'A' && c <= 'Z') {
+                // Shift character back by 'n' positions and wrap around if necessary
+                char shiftedChar = (char) (c - n);
+                if (shiftedChar < 'A') {
+                    shiftedChar += 26; // Wrap around within uppercase alphabet
+                }
+                decodedMessage.append(shiftedChar);
+            }
+            // Non-alphabet characters are added as is
+            else {
+                decodedMessage.append(c);
+            }
+        }
+        return decodedMessage.toString();
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input the encrypted message
+        System.out.print("Enter the encrypted message: ");
+        String s = scanner.nextLine();
+
+        // Input the shift value
+        System.out.print("Enter the shift value: ");
+        int n = scanner.nextInt();
+
+        // Decipher the message and print the result
+        String decipheredMessage = decipherMessage(s, n);
+        System.out.println("Deciphered message: " + decipheredMessage);
+
+        scanner.close();
+    }
+}

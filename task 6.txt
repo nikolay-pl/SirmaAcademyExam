@@ -1,0 +1,97 @@
+task 6
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class AurorFormation {
+
+    // Method to execute commands and update the formation
+    public static void executeCommand(List<Integer> formation, String command) {
+        String[] parts = command.split(" ");
+        
+        switch (parts[0]) {
+            case "destroy":
+                int indexToRemove = Integer.parseInt(parts[1]);
+                if (indexToRemove >= 0 && indexToRemove < formation.size()) {
+                    formation.remove(indexToRemove);
+                } else {
+                    System.out.println("Invalid index for destroy command.");
+                }
+                break;
+            
+            case "swap":
+                int index1 = Integer.parseInt(parts[1]);
+                int index2 = Integer.parseInt(parts[2]);
+                if (index1 >= 0 && index1 < formation.size() && index2 >= 0 && index2 < formation.size()) {
+                    int temp = formation.get(index1);
+                    formation.set(index1, formation.get(index2));
+                    formation.set(index2, temp);
+                } else {
+                    System.out.println("Invalid indices for swap command.");
+                }
+                break;
+            
+            case "add":
+                int idToAdd = Integer.parseInt(parts[1]);
+                formation.add(idToAdd);
+                break;
+            
+            case "insert":
+                int idToInsert = Integer.parseInt(parts[1]);
+                int position = Integer.parseInt(parts[2]);
+                if (position >= 0 && position <= formation.size()) {
+                    formation.add(position, idToInsert);
+                } else {
+                    System.out.println("Invalid position for insert command.");
+                }
+                break;
+            
+            case "center":
+                int size = formation.size();
+                if (size == 0) {
+                    System.out.println("Formation is empty.");
+                } else if (size % 2 == 1) {
+                    System.out.println("Center Auror: " + formation.get(size / 2));
+                } else {
+                    System.out.println("Center Aurors: " + formation.get(size / 2 - 1) + ", " + formation.get(size / 2));
+                }
+                break;
+
+            default:
+                System.out.println("Invalid command.");
+        }
+        
+        // Print the current formation after each command
+        System.out.println("Current formation: " + formation);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input the initial formation of Auror IDs
+        System.out.print("Enter the number of Aurors: ");
+        int n = scanner.nextInt();
+        
+        List<Integer> formation = new ArrayList<>();
+        System.out.println("Enter Auror IDs:");
+        for (int i = 0; i < n; i++) {
+            formation.add(scanner.nextInt());
+        }
+        
+        // Clear the scanner buffer
+        scanner.nextLine(); // Consume newline character
+
+        // Process commands until "exit" is entered
+        System.out.println("Enter commands (type 'exit' to finish):");
+        while (true) {
+            String command = scanner.nextLine();
+            if (command.equalsIgnoreCase("exit")) {
+                break;
+            }
+            executeCommand(formation, command);
+        }
+
+        scanner.close();
+    }
+}

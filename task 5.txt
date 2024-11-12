@@ -1,0 +1,57 @@
+task 5
+import java.util.Stack;
+import java.util.Scanner;
+
+public class EpicDuel {
+
+    public static boolean isEpicDuel(String sequence) {
+        Stack<Character> stack = new Stack<>();
+
+        for (char ch : sequence.toCharArray()) {
+            switch (ch) {
+                case '/':
+                    stack.push('\\'); // Push the counterspell for jinx
+                    break;
+                case '!':
+                    if (!stack.isEmpty() && stack.peek() == '!') {
+                        stack.pop(); // Counter the powerful curse
+                    } else {
+                        stack.push('!'); // Push if there's no match
+                    }
+                    break;
+                case '<':
+                    stack.push('>'); // Push the counterspell for ancient magic
+                    break;
+                case '\\':
+                case '>':
+                    // Check if there is a matching spell in the stack
+                    if (stack.isEmpty() || stack.pop() != ch) {
+                        return false; // Mismatched or unbalanced
+                    }
+                    break;
+                default:
+                    // Ignore any other characters
+                    break;
+            }
+        }
+        // If stack is empty, all spells have been matched
+        return stack.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input the sequence of spells and counterspells
+        System.out.print("Enter the sequence of spells and counterspells: ");
+        String sequence = scanner.nextLine();
+
+        // Determine if the duel is epic
+        if (isEpicDuel(sequence)) {
+            System.out.println("The duel is epic!");
+        } else {
+            System.out.println("The duel is not epic.");
+        }
+
+        scanner.close();
+    }
+}

@@ -1,0 +1,62 @@
+task 2
+
+import java.util.Scanner;
+
+public class OrderOfPhoenixDecision {
+
+    public static String determineDecision(String[] votes) {
+        int yesCount = 0;
+        int noCount = 0;
+        int abstainCount = 0;
+
+        // Count each type of vote
+        for (String vote : votes) {
+            switch (vote.toLowerCase()) {
+                case "yes":
+                    yesCount++;
+                    break;
+                case "no":
+                    noCount++;
+                    break;
+                case "abstain":
+                    abstainCount++;
+                    break;
+                default:
+                    System.out.println("Invalid vote encountered: " + vote);
+            }
+        }
+
+        // Determine the decision based on counts
+        if (yesCount > noCount && yesCount > abstainCount) {
+            return "Yes";
+        } else if (noCount > yesCount && noCount > abstainCount) {
+            return "No";
+        } else if (abstainCount > yesCount && abstainCount > noCount) {
+            return "Abstain";
+        } else {
+            return "Tie";
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input the number of votes
+        System.out.print("Enter the number of votes: ");
+        int n = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        // Input each vote
+        String[] votes = new String[n];
+        System.out.println("Enter each vote (Yes, No, Abstain):");
+        for (int i = 0; i < n; i++) {
+            votes[i] = scanner.nextLine();
+        }
+
+        // Determine and print the final decision
+        String decision = determineDecision(votes);
+        System.out.println("Decision of the Order: " + decision);
+
+        scanner.close();
+    }
+}
