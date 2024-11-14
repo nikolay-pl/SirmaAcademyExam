@@ -22,7 +22,9 @@ public class Main {
         // Output the result
         System.out.println("Total Dementors fought: " + totalDementors);
 
+        //scanner close.
         scanner.close();
+
 
     }
 }
